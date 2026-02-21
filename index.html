@@ -236,16 +236,7 @@
           <button onClick={handlePurgeClick}>Purge</button>
         </h1>
 
-        <div className="status-board">
-          <p>オムツ残り: <strong>{stock}</strong> 枚</p>
-          <p>今日のミルク: <strong>{milkCount}</strong> 回</p>
-          <p>最後飲んだ時間: {lastMilkTime}</p>
-          
-          {stock <= 10 && <p style={{color: 'red', fontWeight: 'bold'}}>在庫が残りわずかです！</p>}
-          
-          <button onClick={handleDiaperClick}>🧷オムツ</button>
-          <button onClick={handleMilkClick}>🍼 ミルク</button>
-        </div>
+       
 
       
         <div className="main-content">
@@ -261,6 +252,16 @@
           {/* 右側：育児ログセクション */}
           <section className="section">
             <h2>🍼 Logs</h2>
+            <div className="status-board">
+              <p>オムツ残り: <strong>{stock}</strong> 枚</p>
+              <p>今日のミルク: <strong>{milkCount}</strong> 回</p>
+              <p>最後飲んだ時間: {lastMilkTime}</p>
+              
+              {stock <= 10 && <p style={{color: 'red', fontWeight: 'bold'}}>在庫が残りわずかです！</p>}
+              
+              <button onClick={handleDiaperClick}>🧷オムツ</button>
+              <button onClick={handleMilkClick}>🍼 ミルク</button>
+            </div>
             <ul id="logs">
               {logItems}
             </ul>
