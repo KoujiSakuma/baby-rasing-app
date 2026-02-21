@@ -27,14 +27,23 @@
         const handleCheckboxChange = () => {
           props.onCheckboxChange(props.todo.id);
         };
+
+        const isLog = props.todo.category === 'log';
+
         return(
           <li>
             <label>
-              <input 
-                type="checkbox" 
-                checked={props.todo.isCompleted} 
-                onChange={handleCheckboxChange}
-              />
+              {/* ログではない（タスクである）場合のみチェックボックスを表示 */}
+              {!isLog && (
+                <input 
+                  type="checkbox" 
+                  checked={props.todo.isCompleted} 
+                  onChange={handleCheckboxChange}
+                />
+              )}
+              
+              {/* ログの場合は、チェックボックスの代わりに絵文字などを置くと分かりやすい */}
+              {isLog && <span style={{ marginRight: '8px' }}>📝</span>}
               <span>{props.todo.title}</span>
               <span className="time">{props.todo.createdAt}</span>
             </label>
