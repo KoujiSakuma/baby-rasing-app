@@ -94,6 +94,9 @@
         // オムツの在庫
         const [stock, setStock] = React.useState(50);
 
+        // 追加したい枚数
+        const [addedStock, setAddedStock] = React.useState(0);
+
         // ミルクの回数
         const [milkCount, setMilkCount] = React.useState(0);
 
@@ -129,6 +132,11 @@
           updateTodos([newLog, ...todos]);
         };
 
+        const handleAddStock = () => {
+          if (addedStock <= 0) return; // 0以下の数値は無視
+          setStock(prevStock => prevStock + Number(addedStock));
+          setAddedStock(0); // 入力欄をリセット
+        };
 
         // ミルク飲んだ回数記録
         const handleMilkClick = () => {
@@ -263,6 +271,16 @@
             <h2>🍼 Logs</h2>
             <div className="status-board">
               <p>オムツ残り: <strong>{stock}</strong> 枚</p>
+              {/* 在庫追加用の入力エリア */}
+                <div style={{ marginTop: '10px', padding: '10px', borderTop: '1px solid #eee' }}>
+                  <input 
+                    type="number" 
+                    value={addedStock} 
+                    onChange={(e) => setAddedStock(e.target.value)}
+                    style={{ width: '60px', marginRight: '8px' }}
+                  />
+                  <button onClick={handleAddStock}>在庫を補充</button>
+                </div>
               <p>今日のミルク: <strong>{milkCount}</strong> 回</p>
               <p>最後飲んだ時間: {lastMilkTime}</p>
               
