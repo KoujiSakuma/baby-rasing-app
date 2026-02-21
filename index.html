@@ -111,8 +111,9 @@
           const newLog = {
             id: Date.now(),
             title: "オムツ交換",
-            isCompleted: true, // 記録なので最初からチェック済み扱いにします
-            createdAt: timeString
+            isCompleted: true, 
+            createdAt: timeString,
+          category: 'log' 
           };
           
           // 4. リストの先頭に追加
@@ -135,7 +136,7 @@
           title: "ミルク 🍼",
           isCompleted: true,
           createdAt: timeString,
-          category: 'log' // 後でセクションを分ける時に役立ちます
+          category: 'log' 
         };
         updateTodos([newLog, ...todos]);
         };
@@ -163,7 +164,8 @@
             id: Date.now(),
             title: title,
             isCompleted: false,
-            createdAt: timeString
+            createdAt: timeString,
+            category: 'task'
           });
           updateTodos(newTodos);
         };
@@ -204,32 +206,68 @@
         const lastMilkLog = todos.find(todo => todo.title.includes("ミルク"));
         const lastMilkTime = lastMilkLog ? lastMilkLog.createdAt : "まだ記録がありません";
 
-        return (
-          <>
-            <h1>
-            Baby Care & Tasks
-            <button onClick={handlePurgeClick}>Purge</button>
-            </h1>
+        // 1. データをカテゴリごとに分ける
+    const taskItems = todos
+      .filter(todo => todo.category === 'task' || !todo.category) // カテゴリなしもタスク扱い
+      .map(todo => (
+        <Todo
+          key={todo.id}
+          todo={todo} 
+          onDeleteClick={handleTodoDeleteClick}
+          onCheckboxChange={handleTodoCheckboxChange}
+        />
+      ));
 
-            <div className="status-board">
-              <p>オムツ残り: <strong>{stock}</strong> 枚</p>
-              <p>今日のミルク: <strong>{milkCount}</strong> 回</p>
-              <p>最後飲んだ時間: {lastMilkTime}</p>
-              
-              {stock <= 10 && <p style={{color: 'red', fontWeight: 'bold'}}>在庫が残りわずかです！</p>}
-              
-              <button onClick={handleDiaperClick}>🧷オムツ</button>
-              <button onClick={handleMilkClick}>🍼 ミルク</button>
-            </div>
+    const logItems = todos
+      .filter(todo => todo.category === 'log')
+      .map(todo => (
+        <Todo
+          key={todo.id}
+          todo={todo} 
+          onDeleteClick={handleTodoDeleteClick}
+          onCheckboxChange={handleTodoCheckboxChange}
+        />
+      ));
 
+    return (
+      <>
+        <h1>
+          Baby Care & Tasks
+          <button onClick={handlePurgeClick}>Purge</button>
+        </h1>
+
+        <div className="status-board">
+          <p>オムツ残り: <strong>{stock}</strong> 枚</p>
+          <p>今日のミルク: <strong>{milkCount}</strong> 回</p>
+          <p>最後飲んだ時間: {lastMilkTime}</p>
+          
+          {stock <= 10 && <p style={{color: 'red', fontWeight: 'bold'}}>在庫が残りわずかです！</p>}
+          
+          <button onClick={handleDiaperClick}>🧷オムツ</button>
+          <button onClick={handleMilkClick}>🍼 ミルク</button>
+        </div>
+
+      
+        <div className="main-content">
+          {/* 左側：Todoセクション */}
+          <section className="section">
+            <h2>📝 Tasks</h2>
             <ul id="todos">
-              {todoItems}
+              {taskItems}
             </ul>
-            <AddForm 
-              onSubmit={handleAddFormSubmit}
-            />
-          </>
-        );
+            <AddForm onSubmit={handleAddFormSubmit} />
+          </section>
+
+          {/* 右側：育児ログセクション */}
+          <section className="section">
+            <h2>🍼 Logs</h2>
+            <ul id="logs">
+              {logItems}
+            </ul>
+          </section>
+        </div>
+      </>
+    );
       };
       const root = ReactDOM.createRoot(document.querySelector('#root'));
       root.render(

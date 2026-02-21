@@ -17,12 +17,32 @@ body {
 }
 
 .container {
-  width: 440px; /* 少し余裕を持たせました */
+  width: 700px; 
   margin: 40px auto;
   background: #ffffff;
   padding: 24px;
   border-radius: 12px; /* 角を丸くして優しい印象に */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* 軽い浮遊感 */
+}
+/* 既存のコードに追加または修正 */
+.main-content {
+  display: flex;
+  gap: 20px; /* 左右の隙間 */
+  align-items: flex-start;
+}
+
+.section {
+  flex: 1; /* 均等な幅に分割 */
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+h2 {
+  font-size: 1.2rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 8px;
 }
 
 h1 {
