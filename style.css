@@ -138,3 +138,14 @@ form button {
   font-weight: bold;
   padding: 10px 20px;
 }
+
+
+/* ログセクション*/
+
+.log-columns {
+  display: flex;
+  gap: 15px;
+}
+.log-column {
+  flex: 1;
+}
