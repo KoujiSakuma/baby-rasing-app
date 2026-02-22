@@ -246,6 +246,27 @@
         />
       ));
 
+    const milkLogs = todos
+      .filter(todo => todo.category === 'log' && todo.title.includes('ミルク'))
+      .map(todo => (
+        <Todo
+          key={todo.id}
+          todo={todo} 
+          onDeleteClick={handleTodoDeleteClick}
+          onCheckboxChange={handleTodoCheckboxChange}
+        />
+      ));
+
+    const diaperLogs = todos
+      .filter(todo => todo.category === 'log' && todo.title.includes('オムツ'))
+      .map(todo => (
+        <Todo
+          key={todo.id}
+          todo={todo} 
+          onDeleteClick={handleTodoDeleteClick}
+          onCheckboxChange={handleTodoCheckboxChange}
+        />
+      ));
     return (
       <>
         <h1>
@@ -267,6 +288,8 @@
           </section>
 
           {/* 右側：育児ログセクション */}
+
+
           <section className="section">
             <h2>🍼 Logs</h2>
             <div className="status-board">
@@ -289,9 +312,20 @@
               <button onClick={handleDiaperClick}>🧷オムツ</button>
               <button onClick={handleMilkClick}>🍼 ミルク</button>
             </div>
-            <ul id="logs">
-              {logItems}
-            </ul>
+            <section className="section">
+              <h2>🍼 Logs</h2>
+              <div className="log-columns"> {/* 新しく追加 */}
+                <div className="log-column">
+                  <h3>Milk</h3>
+                  <ul>{milkLogs}</ul>
+                </div>
+                <div className="log-column">
+                  <h3>Diaper</h3>
+                  <ul>{diaperLogs}</ul>
+                </div>
+              </div>
+            </section>
+         
           </section>
         </div>
       </>
