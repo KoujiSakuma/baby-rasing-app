@@ -173,6 +173,11 @@
         };
 
         const handleAddFormSubmit = (title) => {
+
+          if (title.trim() === '') {
+            alert('タスクを入力してください！'); 
+            return;
+          }
           const newTodos = [...todos];
 
           const now = new Date();
