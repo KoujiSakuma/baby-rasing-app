@@ -138,19 +138,26 @@
           setAddedStock(0); // 入力欄をリセット
         };
 
-        // ミルク飲んだ回数記録
+        // ミルク飲んだ回数,量の記録
         const handleMilkClick = () => {
-        // 1. 回数を1つ増やす（関数型アップデート）
+
+        // 量を入力
+        const amount =window.prompt("何ml飲みましたか?", "150");
+        // キャンセル時やから文字送信時の処理中断
+        if (amount === null || amount.trim ()=== "") return;
+
+        const milkAmount = Number(amount);
+        //  回数を1つ増やす（関数型アップデート）
         setMilkCount(prevCount => prevCount + 1);
 
-        // 2. 時刻を取得
+        //  時刻を取得
         const now = new Date();
         const timeString = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
 
-        // 3. ログに追加
+        //  ログに追加
         const newLog = {
           id: Date.now(),
-          title: "ミルク 🍼",
+          title: `ミルク 🍼 (${milkAmount}ml)`,
           isCompleted: true,
           createdAt: timeString,
           category: 'log' 
