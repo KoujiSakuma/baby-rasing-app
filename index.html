@@ -218,6 +218,17 @@
           if (!confirm('Sure?')){
             return;
           }
+
+          const todoToDelete = todos.find(todo => todo.id === id);
+
+          if (todoToDelete) {
+            if (todoToDelete.title.includes("ミルク")) {
+              setMilkCount(prev => Math.max(0, prev - 1));
+            }
+            if (todoToDelete.title.includes("オムツ")) {
+              setStock(prev => prev + 1);
+            }
+          }
           const newTodos = todos.filter((todo) => {
             return todo.id !== id;
           });
