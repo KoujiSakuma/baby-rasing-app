@@ -126,7 +126,6 @@
           const newLog = {
             id: Date.now(),
             title: "オムツ交換",
-            isCompleted: true, 
             createdAt: timeString,
           category: 'log' 
           };
@@ -161,7 +160,6 @@
         const newLog = {
           id: Date.now(),
           title: `ミルク 🍼 (${milkAmount}ml)`,
-          isCompleted: true,
           createdAt: timeString,
           category: 'log' 
         };
@@ -177,9 +175,9 @@
             return;
           }
           const newTodos = todos.filter((todo) => {
-            return todo.isCompleted === false;
+            return todo.isCompleted !== true;
           });
-          updateTodos(newTodos)
+          updateTodos(newTodos);
         };
 
         const handleAddFormSubmit = (title) => {
